@@ -45,7 +45,7 @@ Object.defineProperties(DisplayObject.prototype, {
 
                 this._originalDestroy = this.destroy;
 
-                this._originalContainesPoint = this.containsPoint;
+                this._originalContainsPoint = this.containsPoint;
 
                 this.renderWebGL = this._renderCachedWebGL;
                 this.renderCanvas = this._renderCachedCanvas;
@@ -80,9 +80,12 @@ Object.defineProperties(DisplayObject.prototype, {
 */
 DisplayObject.prototype._renderCachedWebGL = function (renderer)
 {
+    if (!this.visible || this.worldAlpha <= 0 || !this.renderable)
+    {
+        return;
+    }
+    
     this._initCachedDisplayObject( renderer );
-
-    this._cachedSprite.worldAlpha = this.worldAlpha;
 
     renderer.setObjectRenderer(renderer.plugins.sprite);
     renderer.plugins.sprite.render( this._cachedSprite );
@@ -172,6 +175,11 @@ DisplayObject.prototype._initCachedDisplayObject = function (renderer)
 */
 DisplayObject.prototype._renderCachedCanvas = function (renderer)
 {
+    if (!this.visible || this.worldAlpha <= 0 || !this.renderable)
+    {
+        return;
+    }
+    
     this._initCachedDisplayObjectCanvas( renderer );
 
     this._cachedSprite.worldAlpha = this.worldAlpha;
