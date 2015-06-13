@@ -431,11 +431,11 @@ Text.prototype.determineFontProperties = function (fontStyle)
 
         context.font = fontStyle;
 
-        var width = Math.ceil(context.measureText('|MÉq').width);
+        var width = Math.ceil(context.measureText('|MÉqßg').width);
         var baseline = Math.ceil(context.measureText('M').width);
-        var height = 2 * baseline;
+        var height = 6 * baseline;
 
-        baseline = baseline * 1.4 | 0;
+        baseline = baseline * 3 | 0;
 
         canvas.width = width;
         canvas.height = height;
@@ -447,7 +447,7 @@ Text.prototype.determineFontProperties = function (fontStyle)
 
         context.textBaseline = 'alphabetic';
         context.fillStyle = '#000';
-        context.fillText('|MÉq', 0, baseline);
+        context.fillText('|MÉqßg', 0, baseline);
 
         var imagedata = context.getImageData(0, 0, width, height).data;
         var pixels = imagedata.length;
